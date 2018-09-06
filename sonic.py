@@ -1,3 +1,4 @@
+#A test-script for the DistanceMeasurer
 from ultrasonic import DistanceMeasurer
 
 
