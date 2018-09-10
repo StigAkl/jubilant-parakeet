@@ -1,7 +1,7 @@
 import wiringpi 
 
+MAX_SPEED = 480
 class Motor(object):
-    MAX_SPEED = 480
 
     def __init__(self, pwm_pin, dir_pin, en_pin):
         self.pwm_pin = pwm_pin
@@ -12,9 +12,9 @@ class Motor(object):
         wiringpi.digitalWrite(self.en_pin,1)
 
     def disable(self):
-        digitalWrite(self.en_pin, 0)
+        wiringpi.digitalWrite(self.en_pin, 0)
     
-    def setSpeed(selv, speed):
+    def setSpeed(self, speed):
         if speed < 0:
             speed = - speed
             dir_value = 1

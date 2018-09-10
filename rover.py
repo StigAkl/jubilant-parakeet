@@ -48,11 +48,22 @@ class Rover(object):
         self.motor_right.enable()
 
     def forward(self):
-        self.motor_left.setSpeed(100)
-        time.sleep(1)
+        self.motor_left.setSpeed(200)
+        self.motor_right.setSpeed(200)
+
+    def backward(self):
+        self.motor_left.setSpeed(-200)
+        self.motor_right.setSpeed(-200)
+
+    def turn_left(self):
+        self.motor_left.setSpeed(-150)
+        self.motor_right.setSpeed(150)
+
+    def turn_right(self):
+        self.motor_left.setSpeed(150)
+        self.motor_right.setSpeed(-150)
+
+    def stop(self):
         self.motor_left.setSpeed(0)
+        self.motor_right.setSpeed(0)
 
-
-rover = Rover()
-rover.start()
-rover.forward()
