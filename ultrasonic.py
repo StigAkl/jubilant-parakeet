@@ -17,39 +17,34 @@ class DistanceMeasurer(object):
         GPIO.setup(self.echo_pin, GPIO.IN)
 
 
-    def startMeasuring(self):
-        self.run = True
+    def getDistance(self):
 
-        while self.run:
-            #Set trigger to HIGH
-            GPIO.output(self.trigger_pin, True)
+        #Set trigger to HIGH
+        GPIO.output(self.trigger_pin, True)
 
-            time.sleep(0.00001)
+        time.sleep(0.00001)
 
-            GPIO.output(self.trigger_pin, False)
+        GPIO.output(self.trigger_pin, False)
 
-            startTime = 0
-            endTime = 0
+        startTime = 0
+        endTime = 0
 
-            while GPIO.input(self.echo_pin) == 0:
-                startTime = time.time()
+        while GPIO.input(self.echo_pin) == 0:
+            startTime = time.time()
 
-            while GPIO.input(self.echo_pin) == 1: 
-                endTime = time.time()
+        while GPIO.input(self.echo_pin) == 1: 
+            endTime = time.time()
 
 
-            duration = endTime - startTime
-            
-            #Multiply duration by sonic speed (34300 cm/s) and divide by 2 (because it travels back again)
-            self.distance = (duration * self.SONIC_SPEED) / 2
-            print (self.getDistance(), end='\r')
-            time.sleep(self.interval_time)
+        duration = endTime - startTime
+        
+        #Multiply duration by sonic speed (34300 cm/s) and divide by 2 (because it travels back again)
+        self.distance = (duration * self.SONIC_SPEED) / 2
+        
+        return self.distance
 
 
     def stopMeasuring(self):
         self.run = False 
         GPIO.cleanup() 
-        print("Stopping..") 
-
-    def getDistance(self):
-        return self.distance
+        print("Stopping..")
